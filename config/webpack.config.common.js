@@ -21,11 +21,10 @@ const autoprefixerOptions = {
 };
 // Note: defined here because it will be used more than once.
 const cssFilename = "static/css/[name].[contenthash:8].css";
-const cssClassName = isDev ? "[path][name]__[local]--[hash:base64:5]" : "[hash:base64:5]";
 // Heads up!
-// We use ExtractTextPlugin to extract LESS content in production environment,
+// We use ExtractTextPlugin to extract CSS content in production environment,
 // we will still use fallback to style-loader in development.
-const extractLess = new ExtractTextPlugin({
+const extractCss = new ExtractTextPlugin({
   filename: cssFilename,
   disable: isDev
 });
@@ -69,11 +68,11 @@ module.exports = {
       // In production, we use a plugin to extract that CSS to a file, but
       // in development "style" loader enables hot editing of CSS.
       {
-        test: /\.less$/,
+        test: /\.css$/,
         exclude: [
           path.resolve(paths.appSrc, "components")
         ],
-        use: extractLess.extract({
+        use: extractCss.extract({
           fallback: {
             loader: "style-loader",
             options: {
@@ -100,52 +99,9 @@ module.exports = {
                   autoprefixer(autoprefixerOptions)
                 ]
               }
-            },
-            { loader: require.resolve("less-loader") }
+            }
           ],
           ...extractTextPluginOptions
-        })
-      },
-      // Heads up!
-      // We apply CSS modules only to our components, this allow to use them
-      // and don't break SUI.
-      {
-        test: /\.less$/,
-        include: [
-          path.resolve(paths.appSrc, "components")
-        ],
-        use: extractLess.extract({
-          fallback: {
-            loader: require.resolve("style-loader"),
-            options: {
-              hmr: isDev
-            }
-          },
-          use: [
-            {
-              loader: require.resolve("css-loader"),
-              options: {
-                importLoaders: 1,
-                localIdentName: cssClassName,
-                modules: true,
-                minimize: process.env.NODE_ENV === "production",
-                sourceMap: shouldUseSourceMap
-              }
-            },
-            {
-              loader: require.resolve("postcss-loader"),
-              options: {
-                // Necessary for external CSS imports to work
-                // https://github.com/facebookincubator/create-react-app/issues/2677
-                ident: "postcss",
-                plugins: () => [
-                  require("postcss-flexbugs-fixes"),
-                  autoprefixer(autoprefixerOptions)
-                ]
-              }
-            },
-            { loader: require.resolve("less-loader") }
-          ]
         })
       },
       // "url" loader works like "file" loader except that it embeds assets
@@ -191,12 +147,11 @@ module.exports = {
     child_process: "empty"
   },
   plugins: [
-    extractLess
+    extractCss
   ],
   resolve: {
     alias: {
-      "../../theme.config$": path.resolve(paths.appSrc, "styling/theme.config"),
-      heading: path.resolve(paths.appSrc, "styling/heading.less")
+
     },
     // This allows you to set a fallback for where Webpack should look for modules.
     // We placed these paths second because we want `node_modules` to "win"
