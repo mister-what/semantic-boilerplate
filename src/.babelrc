@@ -12,15 +12,9 @@
     "@babel/preset-react"
   ],
   "plugins": [
+    "react-hot-loader/babel",
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-proposal-export-default-from",
-    [
-      "direct-import",
-      [
-        "react-router",
-        "react-router-dom"
-      ]
-    ],
     "lodash",
     "@babel/plugin-syntax-dynamic-import"
   ]

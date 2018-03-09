@@ -1,8 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { JssProvider } from "react-jss";
+import "semantic-ui-css/semantic.css";
+import {Provider} from "redux";
 import { AppContainer } from "react-hot-loader";
-import App from "./App";
+import {App} from "./App";
 
 
 const render = (Component) => {

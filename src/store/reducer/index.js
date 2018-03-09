@@ -1,0 +1,1 @@
+export {someStateSlice} from "./someSubStateSlice";
