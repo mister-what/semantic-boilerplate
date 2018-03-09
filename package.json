@@ -18,7 +18,6 @@
     "redux-create-reducer": "^1.1.1",
     "redux-saga": "^0.16.0",
     "semantic-ui-css": "^2.3.0",
-    "semantic-ui-less": "^2.2.12",
     "semantic-ui-react": "^0.78.2"
   },
   "devDependencies": {
@@ -40,8 +39,6 @@
     "file-loader": "^1.1.9",
     "fs-extra": "^5.0.0",
     "html-webpack-plugin": "2.30.1",
-    "less": "^2.7.2",
-    "less-loader": "^4.0.5",
     "postcss-flexbugs-fixes": "^3.3.0",
     "postcss-loader": "^2.1.0",
     "react-dev-utils": "^5.0.0",
